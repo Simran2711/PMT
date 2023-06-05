@@ -3,8 +3,12 @@ import requests
 import json
 
 class TestFlask(unittest.TestCase):
-    
-    def test_api_testing2_for_correct_data(self):
+
+#############################################
+    ####        CASE1       ####
+#############################################
+
+    def test_update_issuewise_comments_api_for_correct_data(self):
 
         print("#"*50)
         print("Test case id: TCUIWC01")
@@ -39,8 +43,12 @@ class TestFlask(unittest.TestCase):
         print("case1")
         # Assert that the response status code is 200 (OK)
         self.assertEqual(r.status_code,200) 
-        
-    def test_api_testing2_for_missing_issue_id(self):
+
+#############################################
+    ####        CASE2       ####
+#############################################
+
+    def test_update_issuewise_comments_api_for_missing_issue_id(self):
 
         print("#"*50)
         print("Test case id: TCUIWC02")
@@ -50,7 +58,7 @@ class TestFlask(unittest.TestCase):
         # Define the API endpoint for adding a new user
         API_ENDPOINT_post = "http://127.0.0.1:5000//update_issuewise_comments"
 
-        # Prepare the data for the new user
+        # Prepare the data 
         data = {"user_id":2001,
                 "comment_id":23,
                 "description":"comment updated by shreya for issue id 3000"}
@@ -60,7 +68,7 @@ class TestFlask(unittest.TestCase):
         headers = {'Content-type': 'application/json'}
         
 
-        # Send a POST request to the API endpoint to add the new user
+        # Send a POST request to the API endpoint 
         r = requests.post(url=API_ENDPOINT_post, data=json.dumps(data), headers=headers)
 
         # Print the response status code
@@ -75,17 +83,22 @@ class TestFlask(unittest.TestCase):
         
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_missing_userid(self):
+
+#############################################
+    ####        CASE3       ####
+#############################################
+
+    def test_update_issuewise_comments_api_for_missing_userid(self):
 
         print("#"*50)
         print("Test case id: TCUIWC03")
         print("Test case name: Checking for missing issue_id  ")
         print("Inside the Test Case ")
 
-        # Define the API endpoint for adding a new user
+        # Define the API endpoint 
         API_ENDPOINT_post = "http://127.0.0.1:5000//update_issuewise_comments"
 
-        # Prepare the data for the new user
+        # Prepare the data 
         data =  {"project_id":13000,
                 "comment_id":23,
                 "description":"comment added by shreya for issueid 3000 is to be updated."}
@@ -96,7 +109,7 @@ class TestFlask(unittest.TestCase):
         headers = {'Content-type': 'application/json'}
         
 
-        # Send a POST request to the API endpoint to add the new user
+        # Send a POST request to the API endpoint
         r = requests.post(url=API_ENDPOINT_post, data=json.dumps(data), headers=headers)
 
         # Print the response status code
@@ -112,17 +125,22 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_missing_description(self):
+#############################################
+    ####        CASE4       ####
+#############################################
+
+
+    def test_update_issuewise_comments_api_for_missing_description(self):
 
         print("#"*50)
         print("Test case id: TCUIWC04")
         print("Test case name: Checking for missing description  ")
         print("Inside the Test Case ")
 
-        # Define the API endpoint for adding a new user
+        # Define the API endpoint 
         API_ENDPOINT_post = "http://127.0.0.1:5000//update_issuewise_comments"
 
-        # Prepare the data for the new user
+        # Prepare the data 
         data =  {"issue_id":3000,
                 "user_id":2001,
                 "comment_id":23}
@@ -133,7 +151,7 @@ class TestFlask(unittest.TestCase):
         headers = {'Content-type': 'application/json'}
         
 
-        # Send a POST request to the API endpoint to add the new user
+        # Send a POST request to the API endpoint 
         r = requests.post(url=API_ENDPOINT_post, data=json.dumps(data), headers=headers)
 
         # Print the response status code
@@ -148,18 +166,23 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
+#############################################
+    ####        CASE5       ####
+#############################################
 
-    def test_api_testing2_for_missing_commentid(self):
+
+
+    def test_update_issuewise_comments_api_for_missing_commentid(self):
 
         print("#"*50)
         print("Test case id: TCUIWC05")
         print("Test case name: Checking for missing comment_id  ")
         print("Inside the Test Case ")
 
-        # Define the API endpoint for adding a new user
+        # Define the API endpoint 
         API_ENDPOINT_post = "http://127.0.0.1:5000//update_issuewise_comments"
 
-        # Prepare the data for the new user
+        # Prepare the data 
         data =  {"issue_id":3000,
                 "user_id":2001,
                 "description":"comment added by shreya for projectid 100 is to be updated."}
@@ -170,7 +193,7 @@ class TestFlask(unittest.TestCase):
         headers = {'Content-type': 'application/json'}
         
 
-        # Send a POST request to the API endpoint to add the new user
+        # Send a POST request to the API endpoint 
         r = requests.post(url=API_ENDPOINT_post, data=json.dumps(data), headers=headers)
 
         # Print the response status code
@@ -186,29 +209,32 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_incorrect_issueid(self):
+#############################################
+    ####        CASE6       ####
+#############################################
+
+
+    def test_update_issuewise_comments_api_for_incorrect_issueid(self):
 
         print("#"*50)
         print("Test case id: TCUIWC06")
         print("Test case name: Checking for incorrect issue_id  ")
         print("Inside the Test Case ")
 
-        # Define the API endpoint for adding a new user
+        # Define the API endpoint 
         API_ENDPOINT_post = "http://127.0.0.1:5000//update_issuewise_comments"
 
-        # Prepare the data for the new user
+        # Prepare the data 
         data =  {"issue_id":"100hy",
                 "user_id":2001,
                 "comment_id":23,
                 "description":"comment updated by shreya for issueid 3000."}
-
-
-
+        
         # Set the headers for the request
         headers = {'Content-type': 'application/json'}
         
 
-        # Send a POST request to the API endpoint to add the new user
+        # Send a POST request to the API endpoint
         r = requests.post(url=API_ENDPOINT_post, data=json.dumps(data), headers=headers)
 
         # Print the response status code
@@ -224,17 +250,22 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_incorrect_userid(self):
+#############################################
+    ####        CASE7       ####
+#############################################
+
+
+    def test_update_issuewise_comments_api_for_incorrect_userid(self):
 
         print("#"*50)
         print("Test case id: TCUIWC07")
         print("Test case name: Checking for incorrect user_id  ")
         print("Inside the Test Case ")
 
-        # Define the API endpoint for adding a new user
+        # Define the API endpoint 
         API_ENDPOINT_post = "http://127.0.0.1:5000//update_issuewise_comments"
 
-        # Prepare the data for the new user
+        # Prepare the data 
         data =  {"issue_id":3000,
                 "user_id":"200civg",
                 "comment_id":23,
@@ -246,7 +277,7 @@ class TestFlask(unittest.TestCase):
         headers = {'Content-type': 'application/json'}
         
 
-        # Send a POST request to the API endpoint to add the new user
+        # Send a POST request to the API endpoint 
         r = requests.post(url=API_ENDPOINT_post, data=json.dumps(data), headers=headers)
 
         # Print the response status code
@@ -261,7 +292,12 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_incorrect_userid_data(self):
+
+#############################################
+    ####        CASE8       ####
+#############################################
+
+    def test_update_issuewise_comments_api_for_incorrect_userid_data(self):
 
         print("#"*50)
         print("Test case id: TCUIWC08")
@@ -298,7 +334,12 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-def test_api_testing2_for_incorrect_commentid_data(self):
+#############################################
+    ####        CASE9       ####
+#############################################
+
+
+def test_update_issuewise_comments_api_for_incorrect_commentid_data(self):
         """Test case : Checking for incorrect comment_id value"""
         print("#"*50)
         print("Test case id: TCUIWC09")

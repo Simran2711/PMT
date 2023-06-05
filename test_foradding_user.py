@@ -3,8 +3,12 @@ import requests
 import json
 
 class TestFlask(unittest.TestCase):
-    
-    def test_api_testing2_for_correct_data(self):
+
+#############################################
+    ####        CASE1       ####
+#############################################
+
+    def test_add_user_api_for_correct_data(self):
         print("#"*50)
         print("Test case id: TCAU01")
         print("Test case name: Checking for CORRECT data  ")
@@ -38,7 +42,12 @@ class TestFlask(unittest.TestCase):
         # Assert that the response status code is 200 (OK)
         self.assertEqual(r.status_code,200) 
         
-    def test_api_testing2_for_missing_name(self):
+#############################################
+    ####        CASE2      ####
+#############################################
+
+    def test_add_user_api_for_missing_name(self):
+
 
         print("#"*50)
         print("Test case id: TCAU02")
@@ -74,7 +83,14 @@ class TestFlask(unittest.TestCase):
         
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_missing_emailid(self):
+
+
+#############################################
+    ####        CASE3       ####
+#############################################
+
+
+    def test_add_user_api_for_missing_emailid(self):
 
         print("#"*50)
         print("Test case id: TCAU03")
@@ -110,7 +126,12 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_missing_contact(self):
+#############################################
+    ####        CASE4       ####
+#############################################
+
+
+    def test_add_user_api_for_missing_contact(self):
 
         print("#"*50)
         print("Test case id: TCAU04")
@@ -145,7 +166,13 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_missing_role(self):
+
+#############################################
+    ####        CASE5       ####
+#############################################
+
+
+    def test_add_user_api_for_missing_role(self):
 
         print("#"*50)
         print("Test case id: TCAU05")
@@ -179,7 +206,13 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_incorrect_name(self):
+
+#############################################
+    ####        CASE6       ####
+#############################################
+
+
+    def test_add_user_api_for_incorrect_name(self):
 
         print("#"*50)
         print("Test case id: TCAU06")
@@ -216,7 +249,12 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_incorrect_emailid(self):
+#############################################
+    ####        CASE7       ####
+#############################################
+
+
+    def test_add_user_api_for_incorrect_emailid(self):
 
         print("#"*50)
         print("Test case id: TCAU07")
@@ -252,7 +290,13 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_incorrect_contact(self):
+#############################################
+    ####        CASE8       ####
+#############################################
+
+
+
+    def test_add_user_api_for_incorrect_contact(self):
 
         print("#"*50)
         print("Test case id: TCAU08")
@@ -288,8 +332,15 @@ class TestFlask(unittest.TestCase):
         
         self.assertEqual(r.status_code,400)
 
+
+
+#############################################
+    ####        CASE9       ####
+#############################################
+
+
     
-def test_api_testing2_for_duplicate_email(self):
+    def test_add_user_api_for_duplicate_email(self):
 
         print("#"*50)
         print("Test case id: TCAU09")
@@ -321,7 +372,7 @@ def test_api_testing2_for_duplicate_email(self):
 
         # Print the JSON response
         print(pastebin_url)
-        print("case8")
+        print("case9")
         
         self.assertEqual(r.status_code,400)
 

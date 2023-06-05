@@ -4,7 +4,12 @@ import json
 
 class TestFlask(unittest.TestCase):
     
-    def test_api_testing2_for_correct_data(self):
+#############################################
+    ####        CASE1       ####
+#############################################
+
+
+    def test_add_project_comment_api_for_correct_data(self):
 
         print("#"*50)
         print("Test case id: TCACTP01")
@@ -38,8 +43,15 @@ class TestFlask(unittest.TestCase):
         print("case1")
         # Assert that the response status code is 200 (OK)
         self.assertEqual(r.status_code,200) 
-        
-    def test_api_testing2_for_missing_project_id(self):
+
+
+#############################################
+    ####        CASE2       ####
+#############################################
+
+
+
+    def test_add_project_comment_api_or_missing_project_id(self):
 
         print("#"*50)
         print("Test case id: TCACTP02")
@@ -73,7 +85,13 @@ class TestFlask(unittest.TestCase):
         
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_missing_userid(self):
+
+#############################################
+    ####        CASE3       ####
+#############################################
+
+
+    def test_add_project_comment_api_for_missing_userid(self):
 
         print("#"*50)
         print("Test case id: TCACTP03")
@@ -108,7 +126,13 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_missing_description(self):
+#############################################
+    ####        CASE4       ####
+#############################################
+
+
+
+    def test_add_project_comment_api_for_missing_description(self):
 
         print("#"*50)
         print("Test case id: TCACTP04")
@@ -144,7 +168,13 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_incorrect_projectid(self):
+
+#############################################
+    ####        CASE5       ####
+#############################################
+
+
+    def test_add_project_comment_api_for_incorrect_projectid(self):
 
         print("#"*50)
         print("Test case id: TCACTP05")
@@ -180,7 +210,12 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_incorrect_userid(self):
+#############################################
+    ####        CASE6       ####
+#############################################
+
+
+    def test_add_project_comment_api_for_incorrect_userid(self):
 
         print("#"*50)
         print("Test case id: TCACTP06")
@@ -215,7 +250,13 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_incorrect_userid_data(self):
+
+#############################################
+    ####        CASE7       ####
+#############################################
+
+
+    def test_add_project_comment_api_for_incorrect_userid_data(self):
 
         print("#"*50)
         print("Test case id: TCACTP07")

@@ -4,8 +4,12 @@ import unittest
 
 
 class TestFlask(unittest.TestCase):
+
+#############################################
+    ####        CASE1       ####
+#############################################
     
-    def test_api_testing2_for_correct_data(self):
+    def test_display_issuewise_comments_api_for_correct_data(self):
 
         print("#"*50)
         print("Test case id: TCDC01")
@@ -38,8 +42,13 @@ class TestFlask(unittest.TestCase):
         print("case1")
         # Assert that the response status code is 200 (OK)
         self.assertEqual(r.status_code,200) 
-        
-    def test_api_testing2_for_missing_data(self):
+
+
+#############################################
+    ####        CASE2       ####
+#############################################
+
+    def test_display_issuewise_comments_api_for_missing_data(self):
 
         print("#"*50)
         print("Test case id: TCDC02")
@@ -72,7 +81,12 @@ class TestFlask(unittest.TestCase):
         # Assert that the response status code is 200 (OK)
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_issueStringdata(self):
+
+#############################################
+    ####        CASE3       ####
+#############################################
+
+    def test_display_issuewise_comments_api_for_issueStringdata(self):
 
         print("#"*50)
         print("Test case id: TCDC03")
@@ -107,7 +121,12 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_Wrongdata(self):
+#############################################
+    ####        CASE4       ####
+#############################################
+
+
+    def test_display_issuewise_comments_api_for_Wrongdata(self):
             
             print("#"*50)
             print("Test case id: TCDC04")

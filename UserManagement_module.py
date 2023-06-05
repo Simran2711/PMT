@@ -26,16 +26,17 @@ bcrypt = Bcrypt(app)
 ###########################################################################################################
 
 #import re
-
+#to check valid name
 def is_valid_name(name):
     pattern = r'^[a-zA-Z][a-zA-Z0-9]*$'
     return re.match(pattern, name) is not None and not name.isdigit()
 
-
+#to check valid email
 def is_valid_email(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     return re.match(pattern, email) is not None
 
+#To check valid phone_no.
 def is_valid_phone_number(phone_number):
     # Remove any non-digit characters from the phone number
     cleaned_number = re.sub(r'\D', '', phone_number)
@@ -44,7 +45,7 @@ def is_valid_phone_number(phone_number):
     pattern = r'^\d{10}$'  # Assumes a 10-digit phone number
     return re.match(pattern, cleaned_number) is not None
 
-
+#to add new user
 def adduser():
     try:
         now = datetime.now()
@@ -173,7 +174,7 @@ def adduser():
 
 
 
-
+#to assign a user to new project
 def assignuser():
     try:
         now = datetime.now()

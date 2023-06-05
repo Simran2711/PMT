@@ -23,6 +23,27 @@ bcrypt = Bcrypt(app)
 ##################################################################################3
 
 def add_projectcomment():
+    """
+    API endpoint for adding a comment to a project.
+
+    Returns:
+        If successful, returns the result of the 'project_commentadd' function.
+        If any errors occur during execution, returns a JSON response with an error message and an appropriate status code.
+
+    Raises:
+        KeyError: If any of the required fields ('project_id', 'user_id', 'description') are missing in the request data.
+        mysql.connector.Error: If there is an error related to the MySQL database.
+        Exception: If any other unexpected exception occurs.
+
+    Usage:
+        - Send a POST request to the 'add_projectcomment' endpoint.
+        - The request data must be in JSON format and include the following fields:
+            - 'project_id' (integer): The ID of the project to add the comment to.
+            - 'user_id' (integer): The ID of the user adding the comment.
+            - 'description' (string): The content of the comment to be added.
+"""
+
+
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -78,6 +99,26 @@ def add_projectcomment():
 
 
 def add_issuecomment():
+    """
+    API endpoint for adding a comment to an issue.
+
+    Returns:
+        If successful, returns the result of the 'issue_commentadd' function.
+        If any errors occur during execution, returns a JSON response with an error message and an appropriate status code.
+
+    Raises:
+        KeyError: If any of the required fields ('issue_id', 'user_id', 'description') are missing in the request data.
+        mysql.connector.Error: If there is an error related to the MySQL database.
+        Exception: If any other unexpected exception occurs.
+
+    Usage:
+        - Send a POST request to the 'add_issuecomment' endpoint.
+        - The request data must be in JSON format and include the following fields:
+            - 'issue_id' (integer): The ID of the issue to add the comment to.
+            - 'user_id' (integer): The ID of the user adding the comment.
+            - 'description' (string): The content of the comment to be added.
+    """
+    
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -130,6 +171,24 @@ def add_issuecomment():
 ##################################################################################################
 
 def display_projectwisecomments():
+    """
+    API endpoint for displaying comments for a specific project.
+
+    Returns:
+        If successful, returns the result of the 'displaycomments_projectswise' function.
+        If any errors occur during execution, returns a JSON response with an error message and an appropriate status code.
+
+    Raises:
+        KeyError: If the required field 'project_id' is missing in the request data.
+        mysql.connector.Error: If there is an error related to the MySQL database.
+        Exception: If any other unexpected exception occurs.
+
+    Usage:
+        - Send a POST request to the 'display_projectwisecomments' endpoint.
+        - The request data must be in JSON format and include the following field:
+            - 'project_id' (integer): The ID of the project for which to retrieve the comments.
+    """
+    
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -166,6 +225,24 @@ def display_projectwisecomments():
 ################################################################################################
 
 def display_issuewisecomments():
+    """
+    API endpoint for displaying comments for a specific issue.
+
+    Returns:
+        If successful, returns the result of the 'displaycomments_issuewise' function.
+        If any errors occur during execution, returns a JSON response with an error message and an appropriate status code.
+
+    Raises:
+        KeyError: If the required field 'issue_id' is missing in the request data.
+        mysql.connector.Error: If there is an error related to the MySQL database.
+        Exception: If any other unexpected exception occurs.
+
+    Usage:
+        - Send a POST request to the 'display_issuewisecomments' endpoint.
+        - The request data must be in JSON format and include the following field:
+            - 'issue_id' (integer): The ID of the issue for which to retrieve the comments.
+    """
+    
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -208,6 +285,27 @@ def display_issuewisecomments():
 
 
 def update_projectwisecomments():
+    """
+    API endpoint for updating a comment for a specific project.
+
+    Returns:
+        If successful, returns the result of the 'updateprojectwise_comments' function.
+        If any errors occur during execution, returns a JSON response with an error message and an appropriate status code.
+
+    Raises:
+        KeyError: If any of the required fields ('project_id', 'comment_id', 'user_id', 'description') are missing in the request data.
+        mysql.connector.Error: If there is an error related to the MySQL database.
+        Exception: If any other unexpected exception occurs.
+
+    Usage:
+        - Send a POST request to the 'update_projectwisecomments' endpoint.
+        - The request data must be in JSON format and include the following fields:
+            - 'project_id' (integer): The ID of the project containing the comment to be updated.
+            - 'comment_id' (integer): The ID of the comment to be updated.
+            - 'user_id' (integer): The ID of the user updating the comment.
+            - 'description' (string): The updated content of the comment.
+    """
+    
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -270,6 +368,26 @@ def update_projectwisecomments():
 
 
 def update_issuewisecomments():
+    """
+    API endpoint for updating a comment for a specific issue.
+
+    Returns:
+        If successful, returns the result of the 'updateissuewise_comments' function.
+        If any errors occur during execution, returns a JSON response with an error message and an appropriate status code.
+
+    Raises:
+        KeyError: If any of the required fields ('issue_id', 'comment_id', 'user_id', 'description') are missing in the request data.
+        mysql.connector.Error: If there is an error related to the MySQL database.
+        Exception: If any other unexpected exception occurs.
+
+    Usage:
+        - Send a POST request to the 'update_issuewisecomments' endpoint.
+        - The request data must be in JSON format and include the following fields:
+            - 'issue_id' (integer): The ID of the issue containing the comment to be updated.
+            - 'comment_id' (integer): The ID of the comment to be updated.
+            - 'user_id' (integer): The ID of the user updating the comment.
+            - 'description' (string): The updated content of the comment.
+    """
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -329,6 +447,23 @@ def update_issuewisecomments():
 
 
 def delete_comment():
+    """
+    API endpoint for deleting a comment.
+
+    Returns:
+        If successful, returns the result of the 'delete_comments' function.
+        If any errors occur during execution, returns a JSON response with an error message and an appropriate status code.
+
+    Raises:
+        KeyError: If the required field 'comment_id' is missing in the request data.
+        mysql.connector.Error: If there is an error related to the MySQL database.
+        Exception: If any other unexpected exception occurs.
+
+    Usage:
+        - Send a POST request to the 'delete_comment' endpoint.
+        - The request data must be in JSON format and include the following field:
+            - 'comment_id' (integer): The ID of the comment to be deleted.
+    """
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))

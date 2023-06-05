@@ -3,8 +3,12 @@ import requests
 import json
 
 class TestFlask(unittest.TestCase):
-    
-    def test_api_testing2_for_correct_data(self):
+
+#############################################
+    ####        CASE1       ####
+#############################################
+
+    def test_deletecomment_api_for_correct_data(self):
 
         print("#"*50)
         print("Test case id: TCTDC01")
@@ -36,8 +40,13 @@ class TestFlask(unittest.TestCase):
         print("case1")
         # Assert that the response status code is 200 (OK)
         self.assertEqual(r.status_code,200) 
-        
-    def test_api_testing2_for_missing_commentid(self):
+
+
+#############################################
+    ####        CASE2       ####
+#############################################
+
+    def test_deletecomment_api_for_missing_commentid(self):
 
         print("#"*50)
         print("Test case id: TCTDC02")
@@ -70,7 +79,12 @@ class TestFlask(unittest.TestCase):
         
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_incorrect_commentid(self):
+
+#############################################
+    ####        CASE3       ####
+#############################################
+
+    def test_deletecomment_api_for_incorrect_commentid(self):
 
         print("#"*50)
         print("Test case id: TCTDC03")
@@ -104,7 +118,12 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_missing_commentid(self):
+
+#############################################
+    ####        CASE4       ####
+#############################################
+
+    def test_deletecomment_api_for_missing_commentid(self):
             print("#"*50)
             print("Test case id: TCTDC04")
             print("Test case name: Checking for missing comment_id  ")

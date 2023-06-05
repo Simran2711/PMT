@@ -3,8 +3,12 @@ import requests
 import json
 
 class TestFlask(unittest.TestCase):
-    
-    def test_api_testing2_for_correct_data(self):
+
+#############################################
+    ####        CASE1       ####
+#############################################
+
+    def test_assign_user_api_for_correct_data(self):
 
         print("#"*50)
         print("Test case id: TCASU01")
@@ -38,8 +42,13 @@ class TestFlask(unittest.TestCase):
         print("case1")
         # Assert that the response status code is 200 (OK)
         self.assertEqual(r.status_code,200) 
-        
-    def test_api_testing2_for_missing_project_id(self):
+
+
+#############################################
+    ####        CASE2       ####
+#############################################
+
+    def test_assign_user_api_for_missing_project_id(self):
 
         print("#"*50)
         print("Test case id: TCASU02")
@@ -73,7 +82,12 @@ class TestFlask(unittest.TestCase):
         
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_missing_user_id(self):
+
+#############################################
+    ####        CASE3       ####
+#############################################
+
+    def test_assign_user_api_for_missing_user_id(self):
 
         print("#"*50)
         print("Test case id: TCASU03")
@@ -108,7 +122,12 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_missing_roleinproject(self):
+
+#############################################
+    ####        CASE4       ####
+#############################################
+
+    def test_assign_user_api_for_missing_roleinproject(self):
 
         print("#"*50)
         print("Test case id: TCASU04")
@@ -142,7 +161,12 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_incorrect_projectID(self):
+
+#############################################
+    ####        CASE5       ####
+#############################################
+
+    def test_assign_user_api_for_incorrect_projectID(self):
 
         print("#"*50)
         print("Test case id: TCASU05")
@@ -176,7 +200,12 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_incorrect_userid(self):
+
+#############################################
+    ####        CASE6       ####
+#############################################
+
+    def test_assign_user_api_for_incorrect_userid(self):
 
         print("#"*50)
         print("Test case id: TCASU06")
@@ -212,7 +241,12 @@ class TestFlask(unittest.TestCase):
         self.assertEqual(r.status_code,400)
 
 
-    def test_api_testing2_for_incorrect_projectid_data(self):
+#############################################
+    ####        CASE7       ####
+#############################################
+
+
+    def test_assign_user_api_for_incorrect_projectid_data(self):
 
         print("#"*50)
         print("Test case id: TCASU07")
@@ -247,7 +281,7 @@ class TestFlask(unittest.TestCase):
 
         self.assertEqual(r.status_code,400)
 
-    def test_api_testing2_for_incorrect_userid_data(self):
+    def test_assign_user_api_for_incorrect_userid_data(self):
 
         print("#"*50)
         print("Test case id: TCASU08")

@@ -7,6 +7,8 @@ import mysql.connector
 mydb=connect_db()
 cursor=mydb.cursor()
 
+###############################################################################
+
 def user_add(name, email_id,hashed_password, contact):#add role after test3
         """This endpoint is used to add a new user to the system.
           It expects the user's name, email ID, contact information,
@@ -30,6 +32,9 @@ def user_add(name, email_id,hashed_password, contact):#add role after test3
 
         return jsonify({"message": "User created successfully."}), 200
 
+
+##########################################################################################
+
 def user_show():
             now = datetime.now()
             dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -51,6 +56,7 @@ def user_show():
             logging.debug(dt_string + " returning a list of all users...")
             return jsonify(user_list),200
 
+#################################################################################################
 
 def user_assign(project_id,user_ID,role_in_project):
             """This endpoint is used to assign a user to a particular project. 
@@ -111,6 +117,7 @@ def user_assign(project_id,user_ID,role_in_project):
             logging.debug(dt_string + " returning a list of all users...")
             return jsonify(user_list),200
 
+############################################################################################
 
 def project_commentadd(project_id,description,user_id):
         """This endpoint is used to add a comment to a project.
@@ -158,7 +165,9 @@ def project_commentadd(project_id,description,user_id):
                 comments_list.append(comments_dict)
         logging.debug(dt_string + " returning all the comments associated with project.")
         return jsonify(comments_list),200
-        
+
+
+#######################################################################################
 
 def issue_commentadd(issue_id,description,user_id):
         """This endpoint is used to add a comment to an issue.
@@ -202,7 +211,9 @@ def issue_commentadd(issue_id,description,user_id):
                 comments_list.append(comments_dict)
         logging.debug(dt_string + " Returning the list of all the comments related to this issue...")
         return jsonify(comments_list),200
- 
+
+##############################################################################
+
 def displaycomments_projectswise(project_id):
         """This endpoint is used to display all the comments related to a specific project. 
         It expects the project ID and retrieves all the comments associated with that project from the database. 
@@ -235,7 +246,9 @@ def displaycomments_projectswise(project_id):
         else:
             logging.debug(dt_string + " returning the list of all comments for the project with project_id ", project_id)
             return jsonify(comments_list),200
+        
 
+############################################################################################
 
 def displaycomments_issuewise(issue_id):
         """This endpoint is used to display all the comments related to a specific issue. 
@@ -271,7 +284,7 @@ def displaycomments_issuewise(issue_id):
             logging.debug(dt_string + " Returning all the comments related to issueId ",issue_id)
             return jsonify(comments_list),200
 
-
+####################################################################################
 
 def updateprojectwise_comments(user_id, description, comment_id, project_id):
     """
@@ -342,7 +355,7 @@ def updateprojectwise_comments(user_id, description, comment_id, project_id):
     logging.debug(dt_string + " Returing the list of all comments...")
     return jsonify(comments_list)
 
-
+##########################################################################
 
 def updateissuewise_comments(user_id,description,comment_id,issue_id):
                 """Update an issue comment with the provided details.
@@ -408,9 +421,10 @@ def updateissuewise_comments(user_id,description,comment_id,issue_id):
                 logging.debug(dt_string + " Returning the comments list for the issue with issue_id ",issue_id)
                 return jsonify(comments_list)
 
-
+#######################################################################################
 
 def delete_comments(comment_id):
+            """it deletes a comment based on comment_id"""
             now = datetime.now()
             dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
             logging.debug(dt_string + " Inside delete_comments function.....")

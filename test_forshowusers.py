@@ -3,8 +3,12 @@ import requests
 import json
 
 class TestFlask(unittest.TestCase):
-    
-    def test_api_testing2_for_correct_data(self):
+
+#############################################
+    ####        CASE1       ####
+#############################################
+
+    def test_show_user_api_for_correct_data(self):
 
         print("#"*50)
         print("Test case id: TCSU01")
