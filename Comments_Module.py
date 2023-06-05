@@ -18,183 +18,37 @@ cors = CORS(app)
 CORS(app, origins='*')
 bcrypt = Bcrypt(app)
 
-###########################################################################################################
-                        #to add new user(authority of  alpha user)
-###########################################################################################################
-
-@app.route('/add_user', methods=['POST'])
-def add_user():
-    try:
-        now = datetime.now()
-        dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
-        logging.debug(dt_string + " Inside add usder API.....")
-        data = request.get_json()
-        
-        logging.debug(dt_string + " Taking Some inputs.....")
-        
-        name = data['name']
-        
-        email_id = data['email_id']
-        
-        contact = data['contact']
-        
-
-        def send_otp_email(receiver_email, otp):
-            
-            logging.debug(dt_string + " Entered send_otp_email function....")
-            
-            sender_email = "pratik@infobellit.com"  # Replace with your email address
-            
-            password = "mzygirleuqcwzwtk"  # Replace with your email password
-
-            message = f"Subject: login credentials for Project Management Tool\n\n Your Username is your email.\nYour password is: {otp}"
-            
-            logging.debug(dt_string + " Sending email....")
-            
-            with smtplib.SMTP("smtp.gmail.com", 587) as server:
-                server.starttls()
-                
-                server.login(sender_email, password)
-                
-                server.sendmail(sender_email, receiver_email, message)
-            
-
-        def generate_otp(length=6):
-            
-            logging.debug(dt_string + " Entered into generate_otp function....")
-            
-            digits = "0123456789abcdefghijklmnopqrstuvwxyz"
-            
-            otp = ""
-            
-            for _ in range(length):
-            
-                otp += random.choice(digits)
-            
-            logging.debug(dt_string + " OTP generated sucessfully....")
-            
-            return otp
-
-        # Example usage
-        email = email_id  # Replace with the recipient's email address
-        
-        logging.debug(dt_string + " calling generate_otp function...")
-        
-        otp = generate_otp()
-        
-        logging.debug(dt_string + " calling send_otp_email function....")
-        
-        send_otp_email(email, otp)
-        
-        print("OTP sent successfully!")
-
-
-        # Hash the password
-        logging.debug(dt_string + " Encrypting the generated password....")
-       
-        hashed_password = bcrypt.generate_password_hash(otp).decode('utf-8')
-
-        logging.debug(dt_string + " calling user_add function to update the database....")
-
-        return user_add(name, email_id,hashed_password, contact)
-
-    except KeyError as e:
-        # Handle missing key in the request data
-        #print(dt_string + " Missing key in request data: " + str(e))
-        
-        return jsonify({"error": str(e)}), 400
-
-    except mysql.connector.Error as err:
-        # Handle MySQL database-related errors
-        print(" Database error: " + str(err))
-        
-        return jsonify({"error": "Database error: " + str(err)}), 500
-
-    except Exception as e:
-        # Handle any other unexpected exceptions
-        print(" An error occurred: " + str(e))
-        
-        return jsonify({"error": "An error occurred: " + str(e)}), 500
-
-
-############################################################################################################
-                            # API to Assign a user to a particular project    
-############################################################################################################
-
-
-
-@app.route('/assign_user', methods=['POST'])
-def assign_user():
-    try:
-        now = datetime.now()
-        dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
-        logging.debug(dt_string + " Inside assign user api...")
-        data = request.get_json()
-        
-        logging.debug(dt_string + " Accepting some values....")
-
-        project_id=data['project_id']
-        
-        user_ID =data["user_ID"]
-        
-        role_in_project = data["role_in_project"]
-        
-        logging.debug(dt_string + " checking if the project manager role already existing or not since tere can be only one project manager per project....")
-        
-        if(role_in_project=='Project manager'):
-            
-            return jsonify({"error":"Their can only be one Project manager per project"}),400
-        
-        else:
-            
-            logging.debug(dt_string + " calling user_assign function to update the databse....")
-            
-            return user_assign(project_id,user_ID,role_in_project)
-
-    except KeyError as e:
-        # Handle missing key in the request data
-        
-        #print("Missing key in request data: " + str(e))
-        
-        return jsonify({"error": str(e)}), 400
-
-    except mysql.connector.Error as err:
-        # Handle MySQL database-related errors
-        
-        print("Database error: " + str(err))
-        
-        return jsonify({"error": "Database error: " + str(err)}), 500
-
-    except Exception as e:
-        # Handle any other unexpected exceptions
-        
-        print("An error occurred: " + str(e))
-        
-        return jsonify({"error": "An error occurred: " + str(e)}), 500
-    
-
 #################################################################################3
                     #API to add comment to project
 ##################################################################################3
 
-
-
-@app.route('/add_project_comment', methods=['POST'])
-def add_project_comment():
+def add_projectcomment():
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
         logging.debug(dt_string + " Inside add_project_comment api....")
         data = request.get_json()
-        
+        print(data)
         logging.debug(dt_string + " Accepting values for add project comment.....")
 
+        if "project_id" not in data:
+            return jsonify({"error": "Missing 'project_id' in request data"}), 400
+        if "user_id" not in data:
+            return jsonify({"error": "Missing 'user_id' in request data"}), 400
+        if "description" not in data:
+            return jsonify({"error": "Missing 'description' in request data"}), 400
+        
         project_id=data['project_id']
         
         user_id =data["user_id"]
         
         description=data["description"]
 
+        if(type(user_id) is not int):
+            return jsonify({"error":"user_id must be integer"}),400
+        if(type(project_id) is not int):
+            return jsonify({"error":"project_id must be integer"}),400
+        
         logging.debug(dt_string + ' calling project_commentadd function.....')
 
         return project_commentadd(project_id,description,user_id)
@@ -203,7 +57,7 @@ def add_project_comment():
         # Handle missing key in the request data
         #print("Missing key in request data: " + str(e))
         
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"error": " Missing key " + str(e)}), 400
 
     except mysql.connector.Error as err:
         # Handle MySQL database-related errors
@@ -222,8 +76,8 @@ def add_project_comment():
                 # Add comment to issue
 #######################################################################################
 
-@app.route('/add_issue_comment', methods=['POST'])
-def add_issue_comment():
+
+def add_issuecomment():
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -232,17 +86,28 @@ def add_issue_comment():
 
         logging.debug(dt_string + " Accepting values for add_issue_comments.....")
 
+        if "issue_id" not in data:
+            return jsonify({"error": "Missing 'issue_id' in request data"}), 400
+        if "user_id" not in data:
+            return jsonify({"error": "Missing 'user_id' in request data"}), 400
+        if "description" not in data:
+            return jsonify({"error": "Missing 'description' in request data"}), 400
+
         issue_id=data['issue_id']
 
         user_id =data["user_id"]
         
         description=data["description"]
         
-        Name = data["Name"]
 
+        if(type(issue_id) is not int):
+            return jsonify({"error":"issue_id must be integer"}),400
+        if(type(user_id) is not int):
+            return jsonify({"error":"user_id must be integer"}),400
+        
         logging.debug(dt_string + " calling issue_commentadd function....")
 
-        return issue_commentadd(issue_id,description,Name,user_id)
+        return issue_commentadd(issue_id,description,user_id)
 
     except KeyError as e:
         # Handle missing key in the request data
@@ -263,53 +128,59 @@ def add_issue_comment():
 ##################################################################################################
                 #api to display the comments related to a project 
 ##################################################################################################
-@app.route('/display_projectwise_comments', methods=['POST'])
-def display_projectwise_comments():
+
+def display_projectwisecomments():
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
         logging.debug(dt_string + " Inside display_projectwise_comments.....")
         data = request.get_json()
         
-        logging.debug(dt_string + " Acceptng project_id for displaying project wise comments....")
+        if "project_id" not in data:
+            return jsonify({"error": "Missing 'project_id' in request data"}), 400
         
-        project_id= data["project_id"]
+        project_id = data["project_id"]
 
-        logging.debug(dt_string + " calling displaycomments_projectwise function.....")
+        logging.debug(dt_string + " Accepting project_id for displaying project wise comments....")
         
         return displaycomments_projectswise(project_id)
 
     except KeyError as e:
-        # Handle missing key in the request data
-        #print("Missing key in request data: " + str(e))
-        return jsonify({"error": str(e)}), 400
+        # Handle missing key in the request data0.
+        return jsonify({"error": "Missing key in request data: " + str(e)}), 400
 
     except mysql.connector.Error as err:
         # Handle MySQL database-related errors
-        print("Database error: " + str(err))
+        logging.error("Database error: " + str(err))
         return jsonify({"error": "Database error: " + str(err)}), 500
  
     except Exception as e:
         # Handle any other unexpected exceptions
-        print("An error occurred: " + str(e))
+        logging.error("An error occurred: " + str(e))
         return jsonify({"error": "An error occurred: " + str(e)}), 500
+
 
 
 ################################################################################################
                     #api to display the comments related to a issue
 ################################################################################################
-@app.route('/display_issuewise_comments', methods=['POST'])
-def display_issuewise_comments():
+
+def display_issuewisecomments():
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
         logging.debug(dt_string + " Inside display_issuewise_comments....")
         data = request.get_json()
-        logging.debug(dt_string + ' Accepting issue_id,project_id to display issue wise comments.....')
-        
-        project_id= data["project_id"]
-        
+        logging.debug(dt_string + ' Accepting issue_id to display issue wise comments.....')
+        #project_id= data["project_id"]
+
+        if "issue_id" not in data:
+            return jsonify({"error": "Missing 'issue_id' in request data"}), 400
         issue_id=data["issue_id"]
+       
+        if(type(issue_id) is not int):
+            return jsonify({"error":"issue_id must be integer"}),400
+        
         
         logging.debug(dt_string + " calling displaycomments_issuewise function......")
 
@@ -335,13 +206,23 @@ def display_issuewise_comments():
                         #API to update a project comment
 ###################################################################################################################
 
-@app.route('/update_projectwise_comments', methods=['POST'])
-def update_projectwise_comments():
+
+def update_projectwisecomments():
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
         logging.debug(dt_string + " Inside update_projectwise_comments api....")
         data = request.get_json()
+
+        if "project_id" not in data:
+            return jsonify({"error": "Missing 'project_id' in request data"}), 400
+        if "comment_id" not in data:
+            return jsonify({"error": "Missing 'comment_id' in request data"}), 400
+        if "user_id" not in data:
+            return jsonify({"error": "Missing 'user_id' in request data"}), 400
+        if "description" not in data:
+            return jsonify({"error": "Missing 'description' in request data"}), 400
+
 
         logging.debug(dt_string + " Accepting details to update comment....")
 
@@ -351,8 +232,17 @@ def update_projectwise_comments():
 
         description=data['description']
         
-        user_id = ['user_id']
-        
+        user_id = data['user_id']
+
+        print(type(user_id))
+        if(type(user_id) is not int):
+            return jsonify({"error":"user_id must be integer"}),400
+        if(type(project_id) is not int):
+            return jsonify({"error":"project_id must be integer"}),400
+        if(type(comment_id) is not int):
+            return jsonify({"error":"comment_id must be integer"}),400
+
+
         logging.debug(dt_string + " calling updateprojectwise_comments function to update database......")
 
         return updateprojectwise_comments(user_id, description, comment_id, project_id)
@@ -378,13 +268,25 @@ def update_projectwise_comments():
 ###############################################################################################################
 
 
-@app.route('/update_issuewise_comments', methods=['POST'])
-def update_issuewise_comments():
+
+def update_issuewisecomments():
     try:
         now = datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
         logging.debug(dt_string + " Inside update_issuewise_comments api....")
         data = request.get_json()
+
+        
+        if "issue_id" not in data:
+            return jsonify({"error": "Missing 'issue_id' in request data"}), 400
+        if "comment_id" not in data:
+            return jsonify({"error": "Missing 'comment_id' in request data"}), 400
+        if "user_id" not in data:
+            return jsonify({"error": "Missing 'user_id' in request data"}), 400
+        if "description" not in data:
+            return jsonify({"error": "Missing 'description' in request data"}), 400
+
+
 
         logging.debug(dt_string + " Accepting values to update ")
 
@@ -392,9 +294,61 @@ def update_issuewise_comments():
         issue_id=data['issue_id']
         comment_id=data["comment_id"]
         description=data['description']
-        user_id = ['user_id']
+        user_id = data['user_id']
+
+        if(type(user_id) is not int):
+            return jsonify({"error":"user_id must be integer"}),400
+        if(type(issue_id) is not int):
+            return jsonify({"error":"project_id must be integer"}),400
+        if(type(comment_id) is not int):
+            return jsonify({"error":"comment_id must be integer"}),400
+
         logging.debug(dt_string + " Calling updateissuewise_comments function to update the database.....")
         return updateissuewise_comments(user_id,description,comment_id,issue_id)
+        
+
+    except KeyError as e:
+        # Handle missing key in the request data
+        return jsonify({"error":  + str(e)}), 400
+
+    except mysql.connector.Error as err:
+        # Handle MySQL database-related errors
+        print("Database error: " + str(err))
+        return jsonify({"error": "Database error: " + str(err)}), 500
+
+    except Exception as e:
+        # Handle any other unexpected exceptions
+        print("An error occurred: " + str(e))
+        return jsonify({"error": "An error occurred: " + str(e)}), 500
+    
+
+###############################################################################################################
+                    #API to delete a comment
+###############################################################################################################
+
+
+
+def delete_comment():
+    try:
+        now = datetime.now()
+        dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
+        logging.debug(dt_string + " Inside update_issuewise_comments api....")
+        data = request.get_json()
+
+        if "comment_id" not in data:
+            return jsonify({"error": "Missing 'comment_id' in request data"}), 400
+    
+
+        logging.debug(dt_string + " Accepting values to update ")
+
+        
+        comment_id=data["comment_id"]
+     
+        if(type(comment_id) is not int):
+            return jsonify({"error":"comment_id must be integer"}),400
+
+        logging.debug(dt_string + " Calling updateissuewise_comments function to update the database.....")
+        return delete_comments(comment_id)
         
 
     except KeyError as e:

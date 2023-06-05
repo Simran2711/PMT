@@ -21,35 +21,52 @@ CORS(app, origins='*')
 
 @app.route('/add_user', methods=['POST'])
 def add_user():
-    return ({"msg":"done"})
+    return adduser()
+    
 
 @app.route('/assign_user', methods=['POST'])
 def assign_user():
-   return ({"msg":"done"})
+   return assignuser()
+   
 
 @app.route('/add_project_comment', methods=['POST'])
 def add_project_comment():
-           return ({"msg":"done"})
+    return add_projectcomment()
+   
 
 @app.route('/add_issue_comment', methods=['POST'])
 def add_issue_comment():
-    return ({"msg":"done"})
+    return add_issuecomment()
+    
 
 @app.route('/display_projectwise_comments', methods=['POST'])
 def display_projectwise_comments():
-    return ({"msg":"done"})
+    
+      return  display_projectwisecomments()
+    
 
 @app.route('/display_issuewise_comments', methods=['POST'])
 def display_issuewise_comments():
-    return ({"msg":"done"})
+        return display_issuewisecomments()
+        
 
 @app.route('/update_projectwise_comments', methods=['POST'])
 def update_projectwise_comments():
-    return ({"msg":"done"})
+    return update_projectwisecomments()
+   
 
 @app.route('/update_issuewise_comments', methods=['POST'])
 def update_issuewise_comments():
-    return ({"msg":"done"})
+    return update_issuewisecomments()
+    
+@app.route('/show_user', methods=['POST'])
+def show_user():
+    return showuser()
+
+
+@app.route('/deletecomment', methods=['POST'])
+def deletecomment():
+    return delete_comment()
 
 if __name__ == "__main__":
     app.run(debug=True,port=5000)
