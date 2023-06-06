@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 from connection import *
 from queries import *
 
+
 from workflow import *
 from Filter import *
 import datetime
@@ -11,15 +12,24 @@ from datetime import datetime
 from issue import *
 from pmt import *
 
+
+from Comments_Module import *
+from UserManagement_module import *
+import datetime
+from datetime import datetime
+
+
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
 # Creating a Flask application instance and enabling CORS (Cross-Origin Resource Sharing) for handling cross-origin requests.
 app = Flask(__name__)
 
+
 CORS(app, origins="*")
 
 cors = CORS(app)
+
 
 
 ############################################################
@@ -164,6 +174,14 @@ def update_project():
     return update_projects() 
 
 
+
+
+
+CORS(app, origins='*')
+
+@app.route('/add_user', methods=['POST'])
+def add_user():
+    return adduser()
 
 
     
