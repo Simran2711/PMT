@@ -16,7 +16,7 @@ def connect_db():
         user=config["user"],
         password=config["password"],
         database=config["database"])
-        #cursor = mydb.cursor()
+        
         print(mydb)
         return mydb
 
@@ -26,14 +26,3 @@ def connect_db():
 
 if __name__=='__main__':
     connect_db()
-
-
-
-
-
-
-
-
-
-
-
