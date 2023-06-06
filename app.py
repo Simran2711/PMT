@@ -223,31 +223,31 @@ def deletecomment():
 
 
 
-@app.route('/login', methods=['POST'])
-def pm_login():
-    return pm_loginn()
+# @app.route('/login', methods=['POST'])
+# def pm_login():
+#     return pm_loginn()
 
 
 
-@app.route('/create_project', methods=['POST'])
-def create_project():
-    return create_projects()
+# @app.route('/create_project', methods=['POST'])
+# def create_project():
+#     return create_projects()
 
 
 
-@app.route('/update_project', methods=['POST'])
-def update_project():
-    return update_projects() 
+# @app.route('/update_project', methods=['POST'])
+# def update_project():
+#     return update_projects() 
 
 
 
 
 
-CORS(app, origins='*')
+# CORS(app, origins='*')
 
-@app.route('/add_user', methods=['POST'])
-def add_user():
-    return adduser()
+# @app.route('/add_user', methods=['POST'])
+# def add_user():
+#     return adduser()
 
 
     
