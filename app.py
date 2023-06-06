@@ -1,24 +1,31 @@
-from flask import Flask, jsonify, request
-import mysql.connector
-from flask_cors import CORS,cross_origin
-import bcrypt
-from flask_bcrypt import bcrypt
+# Importing necessary modules and libraries.
+from flask import Flask, jsonify, Request
+from flask_cors import CORS, cross_origin
 from connection import *
 from queries import *
 
-from pmt import *
+
+
 
 from Comments_Module import *
 from UserManagement_module import *
 import datetime
 from datetime import datetime
 
+from workflow import *
+from Filter import *
+import datetime
+from datetime import datetime
+from issue import *
+import logging
+
+
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-file = open("myfile.txt","w")
-
+# Creating a Flask application instance and enabling CORS (Cross-Origin Resource Sharing) for handling cross-origin requests.
 app = Flask(__name__)
+
 cors = CORS(app)
 
 
@@ -62,46 +69,131 @@ CORS(app, origins='*')
 def add_user():
     return adduser()
 
+
+CORS(app, origins="*")
+
+
+
+
+############################################################
+#                       workflow module                    #
+############################################################
+
+
+@app.route('/GetWorkFlow', methods=['POST'])
+def GetWorkFlow():
+    return getwf()
+
+@app.route('/StatusUpdate', methods=['POST'])
+def StatusUpdate():
+    return statusupdate()
+  
+  
+@app.route('/GetWorkflowIssue', methods=['POST'])
+def GetWorkflowIssue():
+    return getworkflowussue()
+
+
+ ############################ CREATE ISSUE DETAILS #################################
+
+# Defining an API endpoint (/create_issue) for creating a new issue. This endpoint expects a POST request.
+@app.route('/create_issue', methods=['POST'])
+def create_issue():
+    # Call the create_issue function from the queries module with the required arguments
+    return createissue()  
+      
+  
+############################ UPDATE ISSUE DETAILS #################################
+
+# Defining an API endpoint (/update_issue) for updating an existing issue. This endpoint expects a POST request.
+@app.route('/update_issue', methods=['POST'])
+def update_issue():
+    # Call the update_issue function from the queries module with the required arguments
+    return updateissue()  # Pass the necessary arguments
+
     
 
-@app.route('/assign_user', methods=['POST'])
-def assign_user():
-   return assignuser()
-   
+############################ DELETE ISSUE DETAILS #################################
 
-@app.route('/add_project_comment', methods=['POST'])
-def add_project_comment():
-    return add_projectcomment()
-   
-
-@app.route('/add_issue_comment', methods=['POST'])
-def add_issue_comment():
-    return add_issuecomment()
+# Defining an API endpoint (/delete_issue) for deleting an issue. This endpoint expects a POST request.
+@app.route('/delete_issue', methods=['POST'])
+def delete_issue():
+    # Call the delete_issue function from the queries module with the required arguments
+    return deleteissue()  # Pass the necessary arguments
     
 
-@app.route('/display_projectwise_comments', methods=['POST'])
-def display_projectwise_comments():
-    
-      return  display_projectwisecomments()
+############################ CREATE TASK #################################
+
+
+@app.route('/create_task', methods=['POST'])
+def create_task():
+    # Call the create_task function from the queries module with the required arguments
+    return createtask()  # Pass the necessary arguments
     
 
-@app.route('/display_issuewise_comments', methods=['POST'])
-def display_issuewise_comments():
-        return display_issuewisecomments()
-        
 
-@app.route('/update_projectwise_comments', methods=['POST'])
-def update_projectwise_comments():
-    return update_projectwisecomments()
-   
 
-@app.route('/update_issuewise_comments', methods=['POST'])
-def update_issuewise_comments():
-    return update_issuewisecomments()
+############################################################
+#                       Issue module                       #
+############################################################
+
+
+@app.route('/IssueByMonth', methods=['POST'])
+def IssueByMonth():
+    return IssueFilterationMonth()
+
+@app.route('/IssueByWeek', methods=['POST'])
+def IssueByWeek():
+    return IssueFilterationWeek()
+
+@app.route('/IssueByQuarter', methods=['POST'])
+def IssueByQuarterly():
+    return IssueFilterationQuarterly()
+
+@app.route('/DetailedIssue', methods=['GET'])
+def DetailedIssue():
+    return DetailedIssueFilteration()
+
+  
+  
+  
+
+############################ UPDATE TASK #################################
+
+@app.route('/update_task', methods=['POST'])
+def update_task():
+    # Call the update_task function from the queries module with the required arguments
+    return updatetask()  # Pass the necessary arguments
     
-@app.route('/show_user', methods=['POST'])
-def show_user():
-    return showuser()
+
+############################ DELETE TASK #################################
+
+@app.route('/delete_task', methods=['POST'])
+def delete_task():
+    # Call the delete_task function from the queries module with the required arguments
+    return deletetask()  # Pass the necessary arguments
+ 
+############################ CREATE DEFECT#################################
+
+@app.route('/create_defect', methods=['POST'])
+def create_defect():
+
+    return createdefect()
+
+############################ UPDATE TASK #################################
+
+@app.route('/update_defect', methods=['POST'])
+def update_defect():
+
+    return updatedefect()
+
+############################ DELETE DEFECT #################################
+
+@app.route('/delete_defect', methods=['POST'])
+def delete_defect():
+
+    return deletedefect()
+
 
 
 @app.route('/deletecomment', methods=['POST'])
@@ -110,3 +202,4 @@ def deletecomment():
 
 if __name__ == "__main__":
     app.run(debug=True,port=5000)
+
