@@ -7,17 +7,12 @@ from connection import *
 from queries import *
 from pmt import *
 import logging
-
-
-
 logging.basicConfig(level=logging.DEBUG)
 
 file = open("myfile.txt","w")
 
 app = Flask(__name__)
 cors = CORS(app)
-
-
 
 ############################################################
 #                       authentication module                    #
