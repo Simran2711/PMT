@@ -9,7 +9,7 @@ cursor=mydb.cursor()
 
 ###############################################################################
 
-def user_add(name, email_id,hashed_password, contact):#add role after test3
+def user_add(name, email_id,hashed_password, contact,role):#add role after test3
         """This endpoint is used to add a new user to the system.
           It expects the user's name, email ID, contact information,
         and generates an OTP (One-Time Password) to be sent to the user's email address. The user's information, along with the hashed OTP, is then stored in the database."""
@@ -24,8 +24,8 @@ def user_add(name, email_id,hashed_password, contact):#add role after test3
                return jsonify({"error":"email already exists."}),400
 
         logging.debug(dt_string + " Adding the users details into the database...")
-        query = "INSERT INTO users ( Name, Email_ID, password ,Contact) VALUES (%s, %s, %s,%s);" #add role after test
-        values = ( name, email_id,hashed_password, contact)#add role after test
+        query = "INSERT INTO users ( Name, Email_ID, password ,Contact,role) VALUES (%s, %s, %s,%s,%s);" #add role after test
+        values = ( name, email_id,hashed_password, contact,role)#add role after test
         cursor.execute(query, values)
         mydb.commit()
         logging.debug(dt_string + " Details successfully updated into the database....")

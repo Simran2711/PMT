@@ -61,8 +61,8 @@ def adduser():
             return jsonify({"error": "Missing 'email_id' in request data"}), 400
         if "contact" not in data:
             return jsonify({"error": "Missing 'contact' in request data"}), 400
-        """ if "role" not in data:
-            return jsonify({"error": "Missing 'role' in request data"}), 400"""
+        if "role" not in data:
+            return jsonify({"error": "Missing 'role' in request data"}), 400
 
         name = data['name']
         
@@ -70,7 +70,7 @@ def adduser():
         
         contact = data['contact']
 
-        #role = data['role']
+        role = data['role']
         
         if  not is_valid_name(name):
             return jsonify({"error":"Invalid Name....Name can't start from Number,Can be a alphanumeric,special characters are not allowed"}),400
@@ -88,8 +88,6 @@ def adduser():
                return jsonify({"error":"email already exists."}),400
 
 
-
-        logging.debug("11111111")
         def send_otp_email(receiver_email, otp):
             
             logging.debug(dt_string + " Entered send_otp_email function....")
@@ -147,7 +145,7 @@ def adduser():
 
         logging.debug(dt_string + " calling user_add function to update the database....")
 
-        return user_add(name, email_id,hashed_password, contact)  #add role 
+        return user_add(name, email_id,hashed_password, contact,role)  #add role 
 
     except KeyError as e:
         # Handle missing key in the request data
