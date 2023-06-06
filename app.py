@@ -3,6 +3,10 @@ from flask import Flask, jsonify, Request
 from flask_cors import CORS, cross_origin
 from connection import *
 from queries import *
+from workflow import *
+from Filter import *
+import datetime
+from datetime import datetime
 from issue import *
 import logging
 
@@ -12,15 +16,37 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 CORS(app, origins="*")
 
-############################ CREATE ISSUE DETAILS #################################
+
+
+
+############################################################
+#                       workflow module                    #
+############################################################
+
+
+@app.route('/GetWorkFlow', methods=['POST'])
+def GetWorkFlow():
+    return getwf()
+
+@app.route('/StatusUpdate', methods=['POST'])
+def StatusUpdate():
+    return statusupdate()
+  
+  
+ @app.route('/GetWorkflowIssue', methods=['POST'])
+def GetWorkflowIssue():
+    return getworkflowussue()
+
+
+ ############################ CREATE ISSUE DETAILS #################################
 
 # Defining an API endpoint (/create_issue) for creating a new issue. This endpoint expects a POST request.
 @app.route('/create_issue', methods=['POST'])
 def create_issue():
     # Call the create_issue function from the queries module with the required arguments
     return createissue()  
-    
-
+      
+  
 ############################ UPDATE ISSUE DETAILS #################################
 
 # Defining an API endpoint (/update_issue) for updating an existing issue. This endpoint expects a POST request.
@@ -41,11 +67,39 @@ def delete_issue():
 
 ############################ CREATE TASK #################################
 
+
 @app.route('/create_task', methods=['POST'])
 def create_task():
     # Call the create_task function from the queries module with the required arguments
     return createtask()  # Pass the necessary arguments
     
+
+
+
+############################################################
+#                       Issue module                       #
+############################################################
+
+
+@app.route('/IssueByMonth', methods=['POST'])
+def IssueByMonth():
+    return IssueFilterationMonth()
+
+@app.route('/IssueByWeek', methods=['POST'])
+def IssueByWeek():
+    return IssueFilterationWeek()
+
+@app.route('/IssueByQuarter', methods=['POST'])
+def IssueByQuarterly():
+    return IssueFilterationQuarterly()
+
+@app.route('/DetailedIssue', methods=['GET'])
+def DetailedIssue():
+    return DetailedIssueFilteration()
+
+  
+  
+  
 
 ############################ UPDATE TASK #################################
 
