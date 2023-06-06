@@ -43,17 +43,21 @@ def GetWorkflowIssue():
 ############################################################
 
 
-@app.route('/IssueByMonth', methods=['GET'])
+@app.route('/IssueByMonth', methods=['POST'])
 def IssueByMonth():
     return IssueFilterationMonth()
 
-@app.route('/IssueByWeek', methods=['GET'])
+@app.route('/IssueByWeek', methods=['POST'])
 def IssueByWeek():
     return IssueFilterationWeek()
 
-@app.route('/IssueByQuarter', methods=['GET'])
+@app.route('/IssueByQuarter', methods=['POST'])
 def IssueByQuarterly():
     return IssueFilterationQuarterly()
+
+@app.route('/DetailedIssue', methods=['GET'])
+def DetailedIssue():
+    return DetailedIssueFilteration()
 
 if __name__ == "__main__":
     app.run(debug=True,port=5000)
