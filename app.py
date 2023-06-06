@@ -5,11 +5,20 @@ from connection import *
 from queries import *
 
 
+
+
+from Comments_Module import *
+from UserManagement_module import *
+import datetime
+from datetime import datetime
+
+
 from workflow import *
 from Filter import *
 import datetime
 from datetime import datetime
 from issue import *
+
 from pmt import *
 
 
@@ -17,6 +26,9 @@ from Comments_Module import *
 from UserManagement_module import *
 import datetime
 from datetime import datetime
+
+import logging
+
 
 
 import logging
@@ -26,7 +38,9 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
 
+
 CORS(app, origins="*")
+
 
 cors = CORS(app)
 
@@ -38,6 +52,50 @@ cors = CORS(app)
 from flask_bcrypt import Bcrypt
 import bcrypt
 bcrypt = Bcrypt(app)
+
+
+
+@app.route('/login', methods=['POST'])
+def pm_login():
+    return pm_loginn()
+
+
+
+@app.route('/create_project', methods=['POST'])
+def create_project():
+    return create_projects()
+
+
+
+@app.route('/update_project', methods=['POST'])
+def update_project():
+    return update_projects() 
+
+
+@app.route('/create_tasks', methods=['POST'])
+def create_tasks():
+    return create_task() 
+
+@app.route('/update_tasks', methods=['POST'])
+def update_tasks():
+    return update_task() 
+
+
+CORS(app, origins='*')
+
+@app.route('/add_user', methods=['POST'])
+def add_user():
+    return adduser()
+
+
+CORS(app, origins="*")
+
+
+
+
+############################################################
+#                       workflow module                    #
+############################################################
 
 
 
@@ -71,6 +129,7 @@ def create_issue():
 def update_issue():
     # Call the update_issue function from the queries module with the required arguments
     return updateissue()  # Pass the necessary arguments
+
     
 
 ############################ DELETE ISSUE DETAILS #################################
@@ -154,6 +213,13 @@ def delete_defect():
 
     return deletedefect()
 
+
+
+
+
+@app.route('/deletecomment', methods=['POST'])
+def deletecomment():
+    return delete_comment()
 
 
 

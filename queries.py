@@ -519,6 +519,73 @@ def deleteissue(issue_id):
         return jsonify({"message": "Issue Deleted successfully"}), 200
 
 
+############################ CREATE TASK #################################
+
+def createtask(issue_id, description, status, task_sd, task_ed, planned_hours, actual_hours,priority):
+        
+        query = "INSERT INTO task (issue_id, description, status, task_sd, task_ed, planned_hours, actual_hours, priority) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (issue_id, description, status, task_sd, task_ed, planned_hours, actual_hours,priority)
+        cursor.execute(query, values)
+        mydb.commit()
+
+        logging.debug("Task created: issue_id={}, description={}, status={}, task_sd={}, task_ed={}, planned_hours={}, actual_hours={}, priority={}".format(issue_id, description, status, task_sd, task_ed, planned_hours, actual_hours, priority))
+        return jsonify({"message": "Task created successfully"}), 200
+
+############################ UPDATE TASK #################################
+
+def updatetask(description, status, task_sd, task_ed, planned_hours, actual_hours,priority,task_id, issue_id):
+        
+        query = "UPDATE task SET description = %s,status = %s,task_sd=%s, task_ed=%s, planned_hours=%s, actual_hours=%s, priority=%s WHERE task_id=%s and issue_id=%s"
+        values = (description, status, task_sd, task_ed, planned_hours, actual_hours,priority,task_id, issue_id)
+        cursor.execute(query, values)
+        mydb.commit()
+
+        logging.debug("Task updated: task_id={}, issue_id={}, description={}, status={}, task_sd={}, task_ed={}, planned_hours={}, actual_hours={}, priority={}".format(task_id, issue_id, description, status, task_sd, task_ed, planned_hours, actual_hours, priority))
+        return jsonify({"message": "Task updated successfully"}), 200
+
+############################ DELETE TASK #################################
+
+def deletetask(task_id):
+        
+        query = "DELETE FROM task WHERE task_id = %s"
+        values = (task_id,)
+        cursor.execute(query, values)
+        mydb.commit()
+
+        logging.debug("Task deleted: task_id={}".format(task_id))
+        return jsonify({"message": "Task Deleted successfully"}), 200
+
+############################ CREATE DEFECT #################################
+
+def createdefect(issue_id, description, status,severity, defect_sd, defect_ed, planned_hours, actual_hours):
+
+        query = "INSERT INTO defect (issue_id, description, status, severity, defect_sd, defect_ed, planned_hours, actual_hours) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (issue_id, description, status,severity, defect_sd, defect_ed, planned_hours, actual_hours)
+        cursor.execute(query, values)
+        mydb.commit()
+
+        logging.debug("Defect created: issue_id={}, description={}, status={}, severity={}, defect_sd={}, defect_ed={}, planned_hours={}, actual_hours={}".format(issue_id, description, status, defect_sd, defect_ed, planned_hours, actual_hours))
+        return jsonify({"message": "Defect created successfully"}), 200
+
+############################ UPDATE DEFECT #################################
+
+def updatedefect(description, status, severity, defect_sd, defect_ed, planned_hours, actual_hours,defect_id, issue_id):
+        
+        query = "UPDATE defect SET description = %s,status = %s,severity = %s, defect_sd=%s, defect_ed=%s, planned_hours=%s, actual_hours=%s WHERE defect_id=%s and issue_id=%s"
+        values = (description, status,severity, defect_sd, defect_ed, planned_hours, actual_hours,defect_id, issue_id)
+        cursor.execute(query, values)
+        mydb.commit()
+
+        logging.debug("Defect updated: defect_id={}, issue_id={}, description={}, status={},severity={} ,defect_sd={}, defect_ed={}, planned_hours={}, actual_hours={}".format(defect_id, issue_id, description, status,severity, defect_sd, defect_ed, planned_hours, actual_hours))
+        return jsonify({"message": "Defect updated successfully"}), 200
+
+
+
+mydb=connect_db()
+cursor=mydb.cursor()
+
+
+
 
 
 def user_add(name, email_id,hashed_password, contact):
@@ -639,6 +706,4 @@ def deletedefect(defect_id):
 
         logging.debug("Defect deleted: defect_id={}".format(defect_id))
         return jsonify({"message": "Defect Deleted successfully"}), 200
-
-        
 
