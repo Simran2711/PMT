@@ -183,11 +183,6 @@ def get_cardprojectdetails():
         cursor.close()
 
 
-
-
-
-
-
 def create_task():
     try:
         data = request.get_json()
@@ -201,9 +196,7 @@ def create_task():
         priority = data['priority']
        
 
-       
-
-        
+            
         return createtask(issue_id, description, status, task_sd, task_ed, planned_hours, actual_hours,priority)
 
     except KeyError as e:
@@ -261,10 +254,6 @@ def delete_task():
         data = request.get_json()
         task_id = data['task_id']
         cursor = mydb.cursor()
-
-
-      
-
         return deletetask(task_id)
         
 
@@ -278,12 +267,6 @@ def delete_task():
         logging.error("An error occurred: " + str(e))
         return jsonify({"error": "An error occurred: " + str(e)}), 500
     
-
-
-
-
-
-
     
 if __name__ == "__main__":
     app.run(debug=True,port=5000)
