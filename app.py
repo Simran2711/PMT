@@ -89,6 +89,10 @@ def add_user():
     return adduser()
 
 
+
+@app.route('/add_project_comment', methods=['POST'])
+def add_project_comment():
+    return add_projectcomment()
 # CORS(app, origins="*")
 
 
