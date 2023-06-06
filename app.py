@@ -145,10 +145,7 @@ def delete_defect():
     return deletedefect()
 
 
-# Check if the current script is being run directly as the main module
-if __name__ == '__main__':
-    # Start the Flask development server
-    app.run(debug=True)
+
 
 @app.route('/login', methods=['POST'])
 def pm_login():
@@ -167,13 +164,7 @@ def update_project():
     return update_projects() 
 
 
-@app.route('/create_tasks', methods=['POST'])
-def create_tasks():
-    return create_task() 
 
-@app.route('/update_tasks', methods=['POST'])
-def update_tasks():
-    return update_task() 
 
     
 if __name__ == "__main__":
