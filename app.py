@@ -81,14 +81,15 @@ def update_tasks():
     return update_task() 
 
 
-CORS(app, origins='*')
+# CORS(app, origins='*')
+# Rupa
 
 @app.route('/add_user', methods=['POST'])
 def add_user():
     return adduser()
 
 
-CORS(app, origins="*")
+# CORS(app, origins="*")
 
 
 
