@@ -443,3 +443,6 @@ def delete_comments(comment_id):
             
             return jsonify({"msg":"Comment deleted sucessfully"}),200
 
+
+mydb=connect_db()
+cursor=mydb.cursor()
