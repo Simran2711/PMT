@@ -3,25 +3,32 @@ from flask import Flask, jsonify, Request
 from flask_cors import CORS, cross_origin
 from connection import *
 from queries import *
+
 from workflow import *
 from Filter import *
 import datetime
 from datetime import datetime
 from issue import *
-import logging
+from pmt import *
 
+import logging
 logging.basicConfig(level=logging.DEBUG)
 
 # Creating a Flask application instance and enabling CORS (Cross-Origin Resource Sharing) for handling cross-origin requests.
 app = Flask(__name__)
+
 CORS(app, origins="*")
 
-
+cors = CORS(app)
 
 
 ############################################################
-#                       workflow module                    #
+#                       authentication module                    #
 ############################################################
+from flask_bcrypt import Bcrypt
+import bcrypt
+bcrypt = Bcrypt(app)
+
 
 
 @app.route('/GetWorkFlow', methods=['POST'])
@@ -33,7 +40,7 @@ def StatusUpdate():
     return statusupdate()
   
   
- @app.route('/GetWorkflowIssue', methods=['POST'])
+@app.route('/GetWorkflowIssue', methods=['POST'])
 def GetWorkflowIssue():
     return getworkflowussue()
 
@@ -142,3 +149,33 @@ def delete_defect():
 if __name__ == '__main__':
     # Start the Flask development server
     app.run(debug=True)
+
+@app.route('/login', methods=['POST'])
+def pm_login():
+    return pm_loginn()
+
+
+
+@app.route('/create_project', methods=['POST'])
+def create_project():
+    return create_projects()
+
+
+
+@app.route('/update_project', methods=['POST'])
+def update_project():
+    return update_projects() 
+
+
+@app.route('/create_tasks', methods=['POST'])
+def create_tasks():
+    return create_task() 
+
+@app.route('/update_tasks', methods=['POST'])
+def update_tasks():
+    return update_task() 
+
+    
+if __name__ == "__main__":
+    app.run(debug=True,port=5000)
+
