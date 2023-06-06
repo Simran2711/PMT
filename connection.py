@@ -5,6 +5,7 @@ from urllib.parse import quote_plus as urlquote
 
 
 
+
 def connect_db():
     filename = "db.config"
     content = open(filename).read()
@@ -23,6 +24,7 @@ def connect_db():
     except Exception as e:
         error = {"error" : "Connection with database is failed","config":config}
         print(error)
+
 
 if __name__=='__main__':
     connect_db()
