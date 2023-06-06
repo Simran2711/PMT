@@ -8,7 +8,6 @@ from queries import *
 import datetime
 from datetime import datetime
 import logging
-
 logging.basicConfig(level=logging.DEBUG)
 
 file = open("myfile.txt","w")
@@ -150,13 +149,7 @@ def update_projects():
         # Handle other exceptions
         return jsonify({'error': str(e)}), 500
 
-
-
-
-
-
-
-
+      
 
 ###################################### GET ALL PROJECT DETAILS ###################################
 
